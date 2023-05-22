@@ -1,8 +1,7 @@
 "use client"
 import { routes } from '@/routes/routes'
-import axios, { all } from 'axios'
+import axios from 'axios'
 import Image from 'next/image'
-import { list } from 'postcss'
 import { Key, useEffect, useState } from 'react'
 import ReactPlayer from 'react-player'
 
@@ -26,29 +25,9 @@ export function Recipes() {
     }
   }, [])
 
-
-  console.log(recipes)
-
-  const allIngredients : string[] = []
-
-  recipes.forEach((recipe: any)=>{
-    for(let i = 0; i <= 10; i++){
-      const ingKey = `strIngredient${i}`
-      const ingred = recipe[ingKey]
-      if(ingred){
-        allIngredients.push(ingred)
-      }else{
-        break;
-      }
-    }
-  })
-
-  console.log(allIngredients)
-
-
   return (
-    <div className='flex flex-col border-r-slate-900 items-center justify-center'>
-      <div key={recipes.idMeal} className='gap-5 flex rounded-md flex-col w-4/5 bg-slate-400 p-2 justify-center items-center'>
+    <div className='flex flex-col items-center justify-center w-4/5'>
+      <div key={recipes.idMeal} className='gap-5 flex rounded-md bg-slate-300 flex-col w-4/5 p-2 justify-center items-center'>
         {recipes.map(item => {
           return (
             <>
@@ -58,11 +37,11 @@ export function Recipes() {
                 width={400}
                 height={400}
                 alt='mealThumbnail'
-                className='w-100 flex justify-center'
+                className='w-[600px] h-[500px] flex justify-center rounded-sm'
               />
               <p>Categoria: {item.strCategory}</p>
               <p>Origem: {item.strArea}</p>
-              <p>{item.strInstructions}</p>
+              <a href={item.strSource} className='text-center text-orange-200 bg-amber-950 h-10 flex justify-center items-center p-2 rounded-md hover:text-orange-500 transition-colors' target='_blank'>Clique aqui para ver a receita completa.</a>
               <ReactPlayer url={item.strYoutube} />
             </>
           )
